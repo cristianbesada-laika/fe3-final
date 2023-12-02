@@ -1,16 +1,14 @@
-import React from 'react'
-import Form from '../Components/Form'
-
-//Este componente debera ser estilado como "dark" o "light" dependiendo del theme del Context
+import React from 'react';
+import Form from '../Components/Form';
 
 const Contact = () => {
   return (
-    <div>
-      <h2>Want to know more?</h2>
-      <p>Send us your questions and we will contact you</p>
+    <div style={{display:"flex", flexDirection: "column", justifyContent: "space-around", alignItems: "center"}}>
+      <h2>Quieres saber más?</h2>
+      <p style={{paddingBottom:"50px"}}>Envianos tus preguntas y nos pondremos en contacto</p>
       <Form/>
     </div>
   )
-}
+};
 
-export default Contact
+export default Contact;

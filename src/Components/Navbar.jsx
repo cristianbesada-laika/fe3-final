@@ -1,16 +1,22 @@
 import React from 'react'
-
-//Este componente debera ser estilado como "dark" o "light" dependiendo del theme del Context
+import { Link } from 'react-router-dom'
+import { useContextGlobal } from './utils/global.context'
+import { BiSolidMoon, BiMoon } from 'react-icons/bi';
 
 const Navbar = () => {
+  const {state, dispatch} = useContextGlobal();
 
   return (
-    <nav>
-      {/* Aqui deberan agregar los liks correspondientes a las rutas definidas */}
-      {/* Deberan implementar ademas la logica para cambiar de Theme con el button */}
-      <button>Change theme</button>
+    <nav className='nav'>
+      <Link to="/">Home</Link>
+      <Link to="/Contacto">Contacto</Link>
+      <Link to="/Destacados">Destacados</Link>
+      {
+        state.theme ? <BiSolidMoon onClick={() => {dispatch({ type: "SWITCH THEME" }) }} style={{fontSize:"20px", padding:"5px 0px 0px 5px"}}/> :
+        <BiMoon onClick={() => {dispatch({ type: "SWITCH THEME" }) }} style={{fontSize:"20px", padding:"5px 0px 0px 5px"}}/>
+      }
     </nav>
   )
-}
+};
 
-export default Navbar
+export default Navbar;

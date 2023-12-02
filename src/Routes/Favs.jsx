@@ -1,16 +1,21 @@
 import React from "react";
 import Card from "../Components/Card";
-
-//Este componente debera ser estilado como "dark" o "light" dependiendo del theme del Context
+import { useContextGlobal } from "../Components/utils/global.context";
 
 const Favs = () => {
+  const {state,dispatch} = useContextGlobal()
+  const eliminarFavoritos = () => {
+    dispatch({ type: "ELIMINAR_FAVORITOS" })
+  }
 
   return (
     <>
-      <h1>Dentists Favs</h1>
+      <h1>Dentistas Favoritos</h1>
       <div className="card-grid">
-        {/* este componente debe consumir los destacados del localStorage */}
-        {/* Deberan renderizar una Card por cada uno de ellos */}
+        <button onClick={eliminarFavoritos} className="favButton">
+          {(Object.entries(state.favs).length === 0) ? "No hay favoritos" : "Eliminar favoritos"}
+        </button>
+        {state.favs.map(dentista => <Card dentista={dentista} key={dentista.id} />)}
       </div>
     </>
   );

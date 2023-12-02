@@ -1,20 +1,30 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import { useContextGlobal } from "./utils/global.context";
+import { BiHeart, BiSolidHeart } from 'react-icons/bi'
 
+const Card = ({ dentista }) => {
+  const {state, dispatch} = useContextGlobal();
+  const findFav = state.favs.find(fav => fav.id === dentista.id);
 
-const Card = ({ name, username, id }) => {
-
-  const addFav = ()=>{
-    // Aqui iria la logica para agregar la Card en el localStorage
-  }
+  const addFav = () => { dispatch({ type: "ADD_FAV", payload: dentista }) };
+  const removeFav = () => {
+    const deleteFav = state.favs.filter(fav => fav.id !== dentista.id);
+    dispatch({ type: "DELETE_FAV", payload: deleteFav });
+  };
 
   return (
     <div className="card">
-        {/* En cada card deberan mostrar en name - username y el id */}
-
-        {/* No debes olvidar que la Card a su vez servira como Link hacia la pagina de detalle */}
-
-        {/* Ademas deberan integrar la logica para guardar cada Card en el localStorage */}
-        <button onClick={addFav} className="favButton">Add fav</button>
+        <div>
+          <img src="/images/doctor.jpg" alt="doctor" width={'100px'}/>
+           <div>
+            { findFav ? <BiSolidHeart onClick={removeFav} className="heart-btn"/> : <BiHeart onClick={addFav} className="heart-btn"/> }
+            <h3>{dentista.username}</h3>
+           </div>
+        </div>
+        <Link to={`/Detalle/${dentista.id}`}>
+          <h2>{dentista.name}</h2>
+        </Link>
     </div>
   );
 };
